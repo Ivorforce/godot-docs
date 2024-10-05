@@ -1583,8 +1583,6 @@ Properties
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`rendering/shading/overrides/force_vertex_shading<class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading>`                                                                   | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`                           | :ref:`rendering/shading/overrides/force_vertex_shading.mobile<class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading.mobile>`                                                     | ``true``                                                                                         |
-   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/textures/canvas_textures/default_texture_filter<class_ProjectSettings_property_rendering/textures/canvas_textures/default_texture_filter>`                                                 | ``1``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/textures/canvas_textures/default_texture_repeat<class_ProjectSettings_property_rendering/textures/canvas_textures/default_texture_repeat>`                                                 | ``0``                                                                                            |
@@ -2032,7 +2030,7 @@ It may take several seconds at a stable frame rate before the smoothing is initi
 
 If ``true``, disables printing to standard error. If ``true``, this also hides error and warning messages printed by :ref:`@GlobalScope.push_error<class_@GlobalScope_method_push_error>` and :ref:`@GlobalScope.push_warning<class_@GlobalScope_method_push_warning>`. See also :ref:`application/run/disable_stdout<class_ProjectSettings_property_application/run/disable_stdout>`.
 
-Changes to this setting will only be applied upon restarting the application.
+Changes to this setting will only be applied upon restarting the application. To control this at runtime, use :ref:`Engine.print_error_messages<class_Engine_property_print_error_messages>`.
 
 .. rst-class:: classref-item-separator
 
@@ -2046,7 +2044,7 @@ Changes to this setting will only be applied upon restarting the application.
 
 If ``true``, disables printing to standard output. This is equivalent to starting the editor or project with the ``--quiet`` :doc:`command line argument <../tutorials/editor/command_line_tutorial>`. See also :ref:`application/run/disable_stderr<class_ProjectSettings_property_application/run/disable_stderr>`.
 
-Changes to this setting will only be applied upon restarting the application.
+Changes to this setting will only be applied upon restarting the application. To control this at runtime, use :ref:`Engine.print_to_stdout<class_Engine_property_print_to_stdout>`.
 
 .. rst-class:: classref-item-separator
 
@@ -5990,7 +5988,7 @@ macOS specific override for the shortcut to select the word currently under the 
 
 :ref:`Dictionary<class_Dictionary>` **input/ui_text_skip_selection_for_next_occurrence** :ref:`🔗<class_ProjectSettings_property_input/ui_text_skip_selection_for_next_occurrence>`
 
-If no selection is currently active with the last caret in text fields, searches for the next occurrence of the the word currently under the caret and moves the caret to the next occurrence. The action can be performed sequentially for other occurrences of the word under the last caret.
+If no selection is currently active with the last caret in text fields, searches for the next occurrence of the word currently under the caret and moves the caret to the next occurrence. The action can be performed sequentially for other occurrences of the word under the last caret.
 
 If a selection is currently active with the last caret in text fields, searches for the next occurrence of the selection, adds a caret, selects the next occurrence then deselects the previous selection and its associated caret. The action can be performed sequentially for other occurrences of the selection of the last caret.
 
@@ -9256,6 +9254,8 @@ Sets which physics engine to use for 2D physics.
 
 "DEFAULT" and "GodotPhysics2D" are the same, as there is currently no alternative 2D physics server implemented.
 
+"Dummy" is a 2D physics server that does nothing and returns only dummy values, effectively disabling all 2D physics functionality.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -9491,6 +9491,8 @@ During each physics tick, Godot will multiply the linear velocity of RigidBodies
 Sets which physics engine to use for 3D physics.
 
 "DEFAULT" and "GodotPhysics3D" are the same, as there is currently no alternative 3D physics server implemented.
+
+"Dummy" is a 3D physics server that does nothing and returns only dummy values, effectively disabling all 3D physics functionality.
 
 .. rst-class:: classref-item-separator
 
@@ -11643,22 +11645,6 @@ Lower-end override for :ref:`rendering/shading/overrides/force_lambert_over_burl
 :ref:`bool<class_bool>` **rendering/shading/overrides/force_vertex_shading** = ``false`` :ref:`🔗<class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading>`
 
 If ``true``, forces vertex shading for all rendering. This can increase performance a lot, but also reduces quality immensely. Can be used to optimize performance on low-end mobile devices.
-
-\ **Note:** This setting currently has no effect, as vertex shading is not implemented yet.
-
-.. rst-class:: classref-item-separator
-
-----
-
-.. _class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading.mobile:
-
-.. rst-class:: classref-property
-
-:ref:`bool<class_bool>` **rendering/shading/overrides/force_vertex_shading.mobile** = ``true`` :ref:`🔗<class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading.mobile>`
-
-Lower-end override for :ref:`rendering/shading/overrides/force_vertex_shading<class_ProjectSettings_property_rendering/shading/overrides/force_vertex_shading>` on mobile devices, due to performance concerns or driver support.
-
-\ **Note:** This setting currently has no effect, as vertex shading is not implemented yet.
 
 .. rst-class:: classref-item-separator
 
