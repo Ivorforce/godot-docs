@@ -4156,7 +4156,7 @@ Output color as they came in. This can cause bright lighting to look blown out, 
 
 :ref:`EnvironmentToneMapper<enum_RenderingServer_EnvironmentToneMapper>` **ENV_TONE_MAPPER_REINHARD** = ``1``
 
-Use the Reinhard tonemapper. Performs a variation on rendered pixels' colors by this formula: ``color = color / (1 + color)``. This avoids clipping bright highlights, but the resulting image can look a bit dull.
+Use the Reinhard tonemapper. Performs a variation on rendered pixels' colors by this formula: ``color = color * (1 + color / (white * white)) / (1 + color)``. This avoids clipping bright highlights, but the resulting image can look a bit dull. When :ref:`Environment.tonemap_white<class_Environment_property_tonemap_white>` is left at the default value of ``1.0`` this is identical to :ref:`ENV_TONE_MAPPER_LINEAR<class_RenderingServer_constant_ENV_TONE_MAPPER_LINEAR>` while also being slightly less performant.
 
 .. _class_RenderingServer_constant_ENV_TONE_MAPPER_FILMIC:
 
@@ -5582,11 +5582,19 @@ Color global shader parameter (``global uniform vec4 ...``). Equivalent to :ref:
 
 Cubemap sampler global shader parameter (``global uniform samplerCube ...``). Exposed as a :ref:`Cubemap<class_Cubemap>` in the editor UI.
 
+.. _class_RenderingServer_constant_GLOBAL_VAR_TYPE_SAMPLEREXT:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`GlobalShaderParameterType<enum_RenderingServer_GlobalShaderParameterType>` **GLOBAL_VAR_TYPE_SAMPLEREXT** = ``28``
+
+External sampler global shader parameter (``global uniform samplerExternalOES ...``). Exposed as a :ref:`ExternalTexture<class_ExternalTexture>` in the editor UI.
+
 .. _class_RenderingServer_constant_GLOBAL_VAR_TYPE_MAX:
 
 .. rst-class:: classref-enumeration-constant
 
-:ref:`GlobalShaderParameterType<enum_RenderingServer_GlobalShaderParameterType>` **GLOBAL_VAR_TYPE_MAX** = ``28``
+:ref:`GlobalShaderParameterType<enum_RenderingServer_GlobalShaderParameterType>` **GLOBAL_VAR_TYPE_MAX** = ``29``
 
 Represents the size of the :ref:`GlobalShaderParameterType<enum_RenderingServer_GlobalShaderParameterType>` enum.
 
@@ -5647,6 +5655,104 @@ Buffer memory used (in bytes). This includes vertex data, uniform buffers, and m
 :ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_VIDEO_MEM_USED** = ``5``
 
 Video memory used (in bytes). When using the Forward+ or mobile rendering backends, this is always greater than the sum of :ref:`RENDERING_INFO_TEXTURE_MEM_USED<class_RenderingServer_constant_RENDERING_INFO_TEXTURE_MEM_USED>` and :ref:`RENDERING_INFO_BUFFER_MEM_USED<class_RenderingServer_constant_RENDERING_INFO_BUFFER_MEM_USED>`, since there is miscellaneous data not accounted for by those two metrics. When using the GL Compatibility backend, this is equal to the sum of :ref:`RENDERING_INFO_TEXTURE_MEM_USED<class_RenderingServer_constant_RENDERING_INFO_TEXTURE_MEM_USED>` and :ref:`RENDERING_INFO_BUFFER_MEM_USED<class_RenderingServer_constant_RENDERING_INFO_BUFFER_MEM_USED>`.
+
+.. _class_RenderingServer_constant_RENDERING_INFO_PIPELINE_COMPILATIONS_CANVAS:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_PIPELINE_COMPILATIONS_CANVAS** = ``6``
+
+Number of pipeline compilations that were triggered by the 2D canvas renderer.
+
+.. _class_RenderingServer_constant_RENDERING_INFO_PIPELINE_COMPILATIONS_MESH:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_PIPELINE_COMPILATIONS_MESH** = ``7``
+
+Number of pipeline compilations that were triggered by loading meshes. These compilations will show up as longer loading times the first time a user runs the game and the pipeline is required.
+
+.. _class_RenderingServer_constant_RENDERING_INFO_PIPELINE_COMPILATIONS_SURFACE:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_PIPELINE_COMPILATIONS_SURFACE** = ``8``
+
+Number of pipeline compilations that were triggered by building the surface cache before rendering the scene. These compilations will show up as a stutter when loading an scene the first time a user runs the game and the pipeline is required.
+
+.. _class_RenderingServer_constant_RENDERING_INFO_PIPELINE_COMPILATIONS_DRAW:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_PIPELINE_COMPILATIONS_DRAW** = ``9``
+
+Number of pipeline compilations that were triggered while drawing the scene. These compilations will show up as stutters during gameplay the first time a user runs the game and the pipeline is required.
+
+.. _class_RenderingServer_constant_RENDERING_INFO_PIPELINE_COMPILATIONS_SPECIALIZATION:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`RenderingInfo<enum_RenderingServer_RenderingInfo>` **RENDERING_INFO_PIPELINE_COMPILATIONS_SPECIALIZATION** = ``10``
+
+Number of pipeline compilations that were triggered to optimize the current scene. These compilations are done in the background and should not cause any stutters whatsoever.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _enum_RenderingServer_PipelineSource:
+
+.. rst-class:: classref-enumeration
+
+enum **PipelineSource**: :ref:`🔗<enum_RenderingServer_PipelineSource>`
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_CANVAS:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_CANVAS** = ``0``
+
+Pipeline compilation that was triggered by the 2D canvas renderer.
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_MESH:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_MESH** = ``1``
+
+Pipeline compilation that was triggered by loading a mesh.
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_SURFACE:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_SURFACE** = ``2``
+
+Pipeline compilation that was triggered by building the surface cache before rendering the scene.
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_DRAW:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_DRAW** = ``3``
+
+Pipeline compilation that was triggered while drawing the scene.
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_SPECIALIZATION:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_SPECIALIZATION** = ``4``
+
+Pipeline compilation that was triggered to optimize the current scene.
+
+.. _class_RenderingServer_constant_PIPELINE_SOURCE_MAX:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`PipelineSource<enum_RenderingServer_PipelineSource>` **PIPELINE_SOURCE_MAX** = ``5``
+
+Represents the size of the :ref:`PipelineSource<enum_RenderingServer_PipelineSource>` enum.
 
 .. rst-class:: classref-item-separator
 
@@ -7112,7 +7218,7 @@ Sets the Z range of objects that will be affected by this light. Equivalent to :
 
 Transforms both the current and previous stored transform for a canvas light.
 
-This allows transforming a light without creating a "glitch" in the interpolation, which is is particularly useful for large worlds utilizing a shifting origin.
+This allows transforming a light without creating a "glitch" in the interpolation, which is particularly useful for large worlds utilizing a shifting origin.
 
 .. rst-class:: classref-item-separator
 
@@ -9742,6 +9848,12 @@ The per-instance data size and expected data order is:
       - Position + Vertex color: 16 floats (12 floats for Transform3D, 4 floats for Color)
       - Position + Custom data: 16 floats (12 floats for Transform3D, 4 floats of custom data)
       - Position + Vertex color + Custom data: 20 floats (12 floats for Transform3D, 4 floats for Color, 4 floats of custom data)
+
+Instance transforms are in row-major order. Specifically:
+
+- For :ref:`Transform2D<class_Transform2D>` the float-order is: ``(x.x, y.x, padding_float, origin.x, x.y, y.y, padding_float, origin.y)``.
+
+- For :ref:`Transform3D<class_Transform3D>` the float-order is: ``(basis.x.x, basis.y.x, basis.z.x, origin.x, basis.x.y, basis.y.y, basis.z.y, origin.y, basis.x.z, basis.y.z, basis.z.z, origin.z)``.
 
 .. rst-class:: classref-item-separator
 
