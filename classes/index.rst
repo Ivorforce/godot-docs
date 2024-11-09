@@ -398,6 +398,7 @@ Resources
     class_editorsettings
     class_editorsyntaxhighlighter
     class_environment
+    class_externaltexture
     class_fastnoiselite
     class_fbxdocument
     class_fbxstate
@@ -774,6 +775,7 @@ Other objects
     class_gdextensionmanager
     class_geometry2d
     class_geometry3d
+    class_gltfobjectmodelproperty
     class_hashingcontext
     class_hmaccontext
     class_httpclient
