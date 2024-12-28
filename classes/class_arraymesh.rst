@@ -46,16 +46,16 @@ The most basic example is the creation of a single triangle:
 
  .. code-tab:: csharp
 
-    var vertices = new Vector3[]
-    {
+    Vector3[] vertices =
+    [
         new Vector3(0, 1, 0),
         new Vector3(1, 0, 0),
         new Vector3(0, 0, 1),
-    };
+    ];
     
     // Initialize the ArrayMesh.
     var arrMesh = new ArrayMesh();
-    var arrays = new Godot.Collections.Array();
+    Godot.Collections.Array arrays = [];
     arrays.Resize((int)Mesh.ArrayType.Max);
     arrays[(int)Mesh.ArrayType.Vertex] = vertices;
     
@@ -133,6 +133,8 @@ Methods
    | :ref:`String<class_String>`                             | :ref:`surface_get_name<class_ArrayMesh_method_surface_get_name>`\ (\ surf_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                                                                                                                      |
    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`PrimitiveType<enum_Mesh_PrimitiveType>`           | :ref:`surface_get_primitive_type<class_ArrayMesh_method_surface_get_primitive_type>`\ (\ surf_idx\: :ref:`int<class_int>`\ ) |const|                                                                                                                                                                                                                                                  |
+   +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                  | :ref:`surface_remove<class_ArrayMesh_method_surface_remove>`\ (\ surf_idx\: :ref:`int<class_int>`\ )                                                                                                                                                                                                                                                                                  |
    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                  | :ref:`surface_set_name<class_ArrayMesh_method_surface_set_name>`\ (\ surf_idx\: :ref:`int<class_int>`, name\: :ref:`String<class_String>`\ )                                                                                                                                                                                                                                          |
    +---------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -397,6 +399,18 @@ Gets the name assigned to this surface.
 :ref:`PrimitiveType<enum_Mesh_PrimitiveType>` **surface_get_primitive_type**\ (\ surf_idx\: :ref:`int<class_int>`\ ) |const| :ref:`🔗<class_ArrayMesh_method_surface_get_primitive_type>`
 
 Returns the primitive type of the requested surface (see :ref:`add_surface_from_arrays<class_ArrayMesh_method_add_surface_from_arrays>`).
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ArrayMesh_method_surface_remove:
+
+.. rst-class:: classref-method
+
+|void| **surface_remove**\ (\ surf_idx\: :ref:`int<class_int>`\ ) :ref:`🔗<class_ArrayMesh_method_surface_remove>`
+
+Removes the surface at the given index from the Mesh, shifting surfaces with higher index down by one.
 
 .. rst-class:: classref-item-separator
 
