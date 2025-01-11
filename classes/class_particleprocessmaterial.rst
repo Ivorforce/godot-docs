@@ -257,6 +257,23 @@ Methods
 
 .. rst-class:: classref-descriptions-group
 
+Signals
+-------
+
+.. _class_ParticleProcessMaterial_signal_emission_shape_changed:
+
+.. rst-class:: classref-signal
+
+**emission_shape_changed**\ (\ ) :ref:`🔗<class_ParticleProcessMaterial_signal_emission_shape_changed>`
+
+Emitted when this material's emission shape is changed in any way. This includes changes to :ref:`emission_shape<class_ParticleProcessMaterial_property_emission_shape>`, :ref:`emission_shape_scale<class_ParticleProcessMaterial_property_emission_shape_scale>`, or :ref:`emission_sphere_radius<class_ParticleProcessMaterial_property_emission_sphere_radius>`, and any other property that affects the emission shape's offset, size, scale, or orientation.
+
+.. rst-class:: classref-section-separator
+
+----
+
+.. rst-class:: classref-descriptions-group
+
 Enumerations
 ------------
 
@@ -675,6 +692,8 @@ Property Descriptions
 - :ref:`Texture2D<class_Texture2D>` **get_alpha_curve**\ (\ )
 
 The alpha value of each particle's color will be multiplied by this :ref:`CurveTexture<class_CurveTexture>` over its lifetime.
+
+\ **Note:** :ref:`alpha_curve<class_ParticleProcessMaterial_property_alpha_curve>` multiplies the particle mesh's vertex colors. To have a visible effect on a :ref:`BaseMaterial3D<class_BaseMaterial3D>`, :ref:`BaseMaterial3D.vertex_color_use_as_albedo<class_BaseMaterial3D_property_vertex_color_use_as_albedo>` *must* be ``true``. For a :ref:`ShaderMaterial<class_ShaderMaterial>`, ``ALBEDO *= COLOR.rgb;`` must be inserted in the shader's ``fragment()`` function. Otherwise, :ref:`alpha_curve<class_ParticleProcessMaterial_property_alpha_curve>` will have no visible effect.
 
 .. rst-class:: classref-item-separator
 
@@ -1212,7 +1231,7 @@ Particle color will be modulated by color determined by sampling this texture at
 
 Each particle's color will be multiplied by this :ref:`CurveTexture<class_CurveTexture>` over its lifetime.
 
-\ **Note:** This property won't have a visible effect unless the render material is marked as unshaded.
+\ **Note:** :ref:`emission_curve<class_ParticleProcessMaterial_property_emission_curve>` multiplies the particle mesh's vertex colors. To have a visible effect on a :ref:`BaseMaterial3D<class_BaseMaterial3D>`, :ref:`BaseMaterial3D.vertex_color_use_as_albedo<class_BaseMaterial3D_property_vertex_color_use_as_albedo>` *must* be ``true``. For a :ref:`ShaderMaterial<class_ShaderMaterial>`, ``ALBEDO *= COLOR.rgb;`` must be inserted in the shader's ``fragment()`` function. Otherwise, :ref:`emission_curve<class_ParticleProcessMaterial_property_emission_curve>` will have no visible effect.
 
 .. rst-class:: classref-item-separator
 
