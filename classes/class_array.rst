@@ -35,14 +35,14 @@ An array data structure that can contain a sequence of elements of any :ref:`Var
 
  .. code-tab:: csharp
 
-    var array = new Godot.Collections.Array{"First", 2, 3, "Last"};
+    Godot.Collections.Array array = ["First", 2, 3, "Last"];
     GD.Print(array[0]); // Prints "First"
     GD.Print(array[2]); // Prints 3
-    GD.Print(array[array.Count - 1]); // Prints "Last"
+    GD.Print(array[^1]); // Prints "Last"
     
-    array[2] = "Second";
+    array[1] = "Second";
     GD.Print(array[1]); // Prints "Second"
-    GD.Print(array[array.Count - 3]); // Prints "Second"
+    GD.Print(array[^3]); // Prints "Second"
 
 
 
@@ -135,6 +135,8 @@ Methods
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Variant<class_Variant>`       | :ref:`front<class_Array_method_front>`\ (\ ) |const|                                                                                                                                                    |
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Variant<class_Variant>`       | :ref:`get<class_Array_method_get>`\ (\ index\: :ref:`int<class_int>`\ ) |const|                                                                                                                         |
+   +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`               | :ref:`get_typed_builtin<class_Array_method_get_typed_builtin>`\ (\ ) |const|                                                                                                                            |
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`StringName<class_StringName>` | :ref:`get_typed_class_name<class_Array_method_get_typed_class_name>`\ (\ ) |const|                                                                                                                      |
@@ -186,6 +188,8 @@ Methods
    | :ref:`int<class_int>`               | :ref:`rfind<class_Array_method_rfind>`\ (\ what\: :ref:`Variant<class_Variant>`, from\: :ref:`int<class_int>` = -1\ ) |const|                                                                           |
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`               | :ref:`rfind_custom<class_Array_method_rfind_custom>`\ (\ method\: :ref:`Callable<class_Callable>`, from\: :ref:`int<class_int>` = -1\ ) |const|                                                         |
+   +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                              | :ref:`set<class_Array_method_set>`\ (\ index\: :ref:`int<class_int>`, value\: :ref:`Variant<class_Variant>`\ )                                                                                          |
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                              | :ref:`shuffle<class_Array_method_shuffle>`\ (\ )                                                                                                                                                        |
    +-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -440,17 +444,17 @@ The ``method`` should take one :ref:`Variant<class_Variant>` parameter (the curr
     
     public override void _Ready()
     {
-        // Prints true (3/3 elements evaluate to true).
+        // Prints True (3/3 elements evaluate to true).
         GD.Print(new Godot.Collections.Array>int< { 6, 10, 6 }.All(GreaterThan5));
-        // Prints false (1/3 elements evaluate to true).
+        // Prints False (1/3 elements evaluate to true).
         GD.Print(new Godot.Collections.Array>int< { 4, 10, 4 }.All(GreaterThan5));
-        // Prints false (0/3 elements evaluate to true).
+        // Prints False (0/3 elements evaluate to true).
         GD.Print(new Godot.Collections.Array>int< { 4, 4, 4 }.All(GreaterThan5));
-        // Prints true (0/0 elements evaluate to true).
+        // Prints True (0/0 elements evaluate to true).
         GD.Print(new Godot.Collections.Array>int< { }.All(GreaterThan5));
     
         // Same as the first line above, but using a lambda function.
-        GD.Print(new Godot.Collections.Array>int< { 6, 10, 6 }.All(element => element > 5)); // Prints true
+        GD.Print(new Godot.Collections.Array>int< { 6, 10, 6 }.All(element => element > 5)); // Prints True
     }
 
 
@@ -703,7 +707,7 @@ This method can often be combined with :ref:`resize<class_Array_method_resize>` 
 
  .. code-tab:: csharp
 
-    var array = new Godot.Collections.Array();
+    Godot.Collections.Array array = [];
     array.Resize(5);
     array.Fill(2);
     GD.Print(array); // Prints [2, 2, 2, 2, 2]
@@ -780,7 +784,7 @@ Returns the index of the **first** element in the array that causes ``method`` t
         return number % 2 == 0
     
     func _ready():
-        print([1, 3, 4, 7].find_custom(is_even.bind())) # prints 2
+        print([1, 3, 4, 7].find_custom(is_even.bind())) # Prints 2
 
 
 
@@ -797,6 +801,18 @@ Returns the index of the **first** element in the array that causes ``method`` t
 Returns the first element of the array. If the array is empty, fails and returns ``null``. See also :ref:`back<class_Array_method_back>`.
 
 \ **Note:** Unlike with the ``[]`` operator (``array[0]``), an error is generated without stopping project execution.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Array_method_get:
+
+.. rst-class:: classref-method
+
+:ref:`Variant<class_Variant>` **get**\ (\ index\: :ref:`int<class_int>`\ ) |const| :ref:`🔗<class_Array_method_get>`
+
+Returns the element at the given ``index`` in the array. This is the same as using the ``[]`` operator (``array[index]``).
 
 .. rst-class:: classref-item-separator
 
@@ -858,12 +874,12 @@ Returns ``true`` if the array contains the given ``value``.
 
  .. code-tab:: csharp
 
-    var arr = new Godot.Collections.Array { "inside", 7 };
+    Godot.Collections.Array arr = ["inside", 7];
     // By C# convention, this method is renamed to `Contains`.
-    GD.Print(arr.Contains("inside"));  // Prints true
-    GD.Print(arr.Contains("outside")); // Prints false
-    GD.Print(arr.Contains(7));         // Prints true
-    GD.Print(arr.Contains("7"));       // Prints false
+    GD.Print(arr.Contains("inside"));  // Prints True
+    GD.Print(arr.Contains("outside")); // Prints False
+    GD.Print(arr.Contains(7));         // Prints True
+    GD.Print(arr.Contains("7"));       // Prints False
 
 
 
@@ -1052,7 +1068,7 @@ Returns a random element from the array. Generates an error and returns ``null``
 
  .. code-tab:: csharp
 
-    var array = new Godot.Collections.Array { 1, 2, 3.25f, "Hi" };
+    Godot.Collections.Array array = [1, 2, 3.25f, "Hi"];
     GD.Print(array.PickRandom()); // May print 1, 2, 3.25, or "Hi".
 
 
@@ -1156,10 +1172,10 @@ If :ref:`max<class_Array_method_max>` is not desirable, this method may also be 
 ::
 
     func _ready():
-        var arr = [Vector2(5, 0), Vector2(3, 4), Vector2(1, 2)]
+        var arr = [Vector2i(5, 0), Vector2i(3, 4), Vector2i(1, 2)]
     
         var longest_vec = arr.reduce(func(max, vec): return vec if is_length_greater(vec, max) else max)
-        print(longest_vec) # Prints Vector2(3, 4).
+        print(longest_vec) # Prints (3, 4)
     
     func is_length_greater(a, b):
         return a.length() > b.length()
@@ -1173,11 +1189,11 @@ This method can also be used to count how many elements in an array satisfy a ce
     
     func _ready():
         var arr = [1, 2, 3, 4, 5]
-        # Increment count if it's even, else leaves count the same.
+        # If the current element is even, increment count, otherwise leave count the same.
         var even_count = arr.reduce(func(count, next): return count + 1 if is_even(next) else count, 0)
         print(even_count) # Prints 2
 
-See also :ref:`map<class_Array_method_map>`, :ref:`filter<class_Array_method_filter>`, :ref:`any<class_Array_method_any>` and :ref:`all<class_Array_method_all>`.
+See also :ref:`map<class_Array_method_map>`, :ref:`filter<class_Array_method_filter>`, :ref:`any<class_Array_method_any>`, and :ref:`all<class_Array_method_all>`.
 
 .. rst-class:: classref-item-separator
 
@@ -1248,6 +1264,18 @@ Returns the index of the **last** occurrence of ``what`` in this array, or ``-1`
 :ref:`int<class_int>` **rfind_custom**\ (\ method\: :ref:`Callable<class_Callable>`, from\: :ref:`int<class_int>` = -1\ ) |const| :ref:`🔗<class_Array_method_rfind_custom>`
 
 Returns the index of the **last** element of the array that causes ``method`` to return ``true``, or ``-1`` if there are none. The search's start can be specified with ``from``, continuing to the beginning of the array. This method is the reverse of :ref:`find_custom<class_Array_method_find_custom>`.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_Array_method_set:
+
+.. rst-class:: classref-method
+
+|void| **set**\ (\ index\: :ref:`int<class_int>`, value\: :ref:`Variant<class_Variant>`\ ) :ref:`🔗<class_Array_method_set>`
+
+Sets the value of the element at the given ``index`` to the given ``value``. This will not change the size of the array, it only changes the value at an index already in the array. This is the same as using the ``[]`` operator (``array[index] = value``).
 
 .. rst-class:: classref-item-separator
 
@@ -1327,7 +1355,7 @@ Sorts the array in ascending order. The final order is dependent on the "less th
 
  .. code-tab:: csharp
 
-    var numbers = new Godot.Collections.Array { 10, 5, 2.5, 8 };
+    Godot.Collections.Array numbers = [10, 5, 2.5, 8];
     numbers.Sort();
     GD.Print(numbers); // Prints [2.5, 5, 8, 10]
 
@@ -1420,8 +1448,8 @@ Appends the ``right`` array to the left operand, creating a new **Array**. This 
  .. code-tab:: csharp
 
     // Note that concatenation is not possible with C#'s native Array type.
-    var array1 = new Godot.Collections.Array{"One", 2};
-    var array2 = new Godot.Collections.Array{3, "Four"};
+    Godot.Collections.Array array1 = ["One", 2];
+    Godot.Collections.Array array2 = [3, "Four"];
     GD.Print(array1 + array2); // Prints ["One", 2, 3, "Four"]
 
 
